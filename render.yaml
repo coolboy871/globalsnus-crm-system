@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: globalsnus-crm
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn globalsnus_crm.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: globalsnus_crm.settings_heroku
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    autoDeploy: true

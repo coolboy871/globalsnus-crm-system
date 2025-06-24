@@ -1,0 +1,34 @@
+/* Custom admin styles to replace sidebar icon and fix alignment */
+
+#header-logo {
+  display: none; /* Hide default header logo if any */
+}
+
+#header h1#site-name {
+  display: flex;
+  align-items: center;
+}
+
+#header h1#site-name img {
+  height: 40px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* Sidebar icon replacement */
+#header #branding .logo {
+  background-image: url('/media/product_images/Global-Snus-Logo.png') !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  width: 40px !important;
+  height: 40px !important;
+  display: inline-block !important;
+  text-indent: -9999px !important; /* Hide text */
+}
+
+/* Fix sidebar icon alignment */
+#header #branding {
+  display: flex;
+  align-items: center;
+}

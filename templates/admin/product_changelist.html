@@ -1,0 +1,115 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls static admin_list %}
+
+{% block search %}
+    {{ block.super }}
+    <div style="display: inline-block; margin-left: 10px;">
+        <button type="button" onclick="document.getElementById('import-modal').style.display='block'" 
+                style="background-color: #417690; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 13px;">
+            Import Products
+        </button>
+    </div>
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <style>
+        .import-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .import-modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 500px;
+            border-radius: 5px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
+        .import-form {
+            margin-top: 20px;
+        }
+        .import-form input[type="file"] {
+            margin: 10px 0;
+            padding: 5px;
+            width: 100%;
+        }
+        .import-form input[type="submit"] {
+            background-color: #417690;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .import-form input[type="submit"]:hover {
+            background-color: #205067;
+        }
+        .file-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    
+    <!-- Import Modal -->
+    <div id="import-modal" class="import-modal">
+        <div class="import-modal-content">
+            <span class="close" onclick="document.getElementById('import-modal').style.display='none'">&times;</span>
+            <h2>Import Products</h2>
+            <p>Upload an Excel (.xlsx, .xls) or CSV file to bulk import products.</p>
+            
+            <form method="post" enctype="multipart/form-data" action="import/" class="import-form">
+                {% csrf_token %}
+                <label for="import_file">Select File:</label>
+                <input type="file" name="import_file" id="import_file" accept=".xlsx,.xls,.csv" required>
+                <div class="file-info">
+                    Supported formats: Excel (.xlsx, .xls), CSV (.csv)<br>
+                    Maximum file size: 5MB
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <input type="submit" value="Import Products">
+                    <button type="button" onclick="document.getElementById('import-modal').style.display='none'" style="margin-left: 10px; padding: 10px 20px; background-color: #ccc; border: none; border-radius: 3px; cursor: pointer;">Cancel</button>
+                </div>
+            </form>
+            
+            <div style="margin-top: 20px; padding: 10px; background-color: #f0f0f0; border-radius: 3px;">
+                <strong>Expected columns:</strong><br>
+                <small>
+                    Item title (EN), Code, Supplier code, Image, Description (EN), Supplier, Price, Prime cost, VAT, Weight, kg, Manufacturer, pouch_tip, pouch_length, Unit, Category title, Active
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            var modal = document.getElementById('import-modal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+{% endblock %}

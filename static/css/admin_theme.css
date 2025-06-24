@@ -1,0 +1,41 @@
+/* Default Django Admin Theme - Minimal customization */
+body, .dashboard-module, .module {
+    background: #ffffff;
+    color: #000000;
+}
+
+#header {
+    background: #417690;
+    color: #ffffff;
+}
+
+a:link, a:visited {
+    color: #447e9b;
+}
+
+a:hover {
+    color: #036;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: #417690;
+    color: #ffffff;
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover {
+    background: #205067;
+}
+
+#branding h1 {
+    color: #f5dd5d;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background: #79aec8;
+    color: #fff;
+}
+
+div.breadcrumbs {
+    background: #79aec8;
+    color: #fff;
+}

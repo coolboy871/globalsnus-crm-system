@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/theme.css' %}">
+<html>
+<head>
+    <title>Upload Product File</title>
+</head>
+<body>
+    <h2>📤 Upload Product File (.xlsx or .csv)</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: green;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="import_file" required>
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>

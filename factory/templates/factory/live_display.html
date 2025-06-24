@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Global Snus Manufacturing In Progress</title>
+    <meta http-equiv="refresh" content="30">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            font-family: 'Poppins', sans-serif !important;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            height: 100vh;
+            overflow: hidden;
+        }
+        body {
+            background: #f4f6f8;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #005fed;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 8px 30px;
+            font-weight: 700;
+            font-size: 2rem;
+            text-transform: uppercase;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+        header img.logo {
+            position: absolute;
+            left: 30px;
+            height: 30px;
+            width: auto;
+            object-fit: contain;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            flex: 1;
+            overflow: hidden;
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            width: 400px;
+            padding: 0;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            height: fit-content;
+        }
+        .card-header {
+            background: #005fed;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border-radius: 20px 20px 0 0;
+            padding: 5px 0;
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .details {
+            font-family: Arial, sans-serif;
+            color: black;
+            padding: 0 20px;
+        }
+        .details > div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3px;
+            font-size: 0.95rem;
+            padding: 3px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .details > div:last-of-type {
+            border-bottom: none;
+        }
+        .details > div > div {
+            font-weight: 400 !important;
+        }
+        .details > div:first-child {
+            font-weight: 700 !important;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            border-bottom: none;
+        }
+        .product-image {
+            margin: 10px auto 15px auto;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="/media/product_images/Global-Snus-Logo.png" class="logo" style="height: 30px; width: auto; object-fit: contain;">
+        Manufacturing In Progress
+    </header>
+    <div class="container">
+        {% for item in queue_items reversed %}
+        <div class="card">
+            <div style="background: #005fed; color: white; padding: 5px 0; border-radius: 20px 20px 0 0; font-weight: 700; font-size: 1.4rem; text-align: center; width: 100%; margin-bottom: 10px;">
+                L{{ forloop.revcounter }}
+            </div>
+            <div class="details">
+                <div style="font-weight: 700 !important; font-size: 1.44rem; margin-bottom: 10px; text-transform: uppercase; text-align: center; display: block; width: 100%;">{{ item.product.name_en }}</div>
+                <div><div style="font-weight: 400;">Pouch Tip:</div><div style="font-weight: 400;">{{ item.product.pouch_tip|default:"—" }}</div></div>
+                <div><div style="font-weight: 400;">Pouch Length:</div><div style="font-weight: 400;">{{ item.product.pouch_length|default:"" }} mm</div></div>
+                <div><div style="font-weight: 400;">Strength:</div><div style="font-weight: 400;">{{ item.strength }} MG</div></div>
+                <div><div style="font-weight: 400;">Pouch Qty:</div><div style="font-weight: 400;">{{ item.pouch_quantity }}</div></div>
+                <div><div style="font-weight: 400;">Spray Function:</div><div style="font-weight: 400;">{% if item.spray_function %}Yes{% else %}No{% endif %}</div></div>
+                <div><div style="font-weight: 400;">Production Date:</div><div style="font-weight: 400;">{{ item.production_date|default:"N.D" }}</div></div>
+                <div><div style="font-weight: 400;">Expiry Date:</div><div style="font-weight: 400;">{{ item.expiry_date|default:"N.D" }}</div></div>
+                <div><div style="font-weight: 400;">Lot No.:</div><div style="font-weight: 400;">{{ item.lot_number|default:"N.D" }}</div></div>
+                <div><div style="font-weight: 400;">Language:</div><div style="font-weight: 400;">{{ item.language|default:"—" }}</div></div>
+                <div><div style="font-weight: 400;">Box Color:</div><div style="font-weight: 400;">{{ item.box_color|default:"—" }}</div></div>
+                <div><div style="font-weight: 400;">Lid Color:</div><div style="font-weight: 400;">{{ item.lid_color|default:"—" }}</div></div>
+                <div><div style="font-weight: 400;">Order Quantity:</div><div style="font-weight: 400;">{{ item.order_quantity|default:"—" }} Pallets</div></div>
+            </div>
+            <div class="product-image" style="width: 180px; height: 180px;">
+                {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="Label" style="width: 100%; height: 100%; object-fit: contain;">
+                {% elif item.product.image_url %}
+                    <img src="{{ item.product.image_url }}" alt="Label" style="width: 100%; height: 100%; object-fit: contain;">
+                {% else %}
+                    <p><em>No image</em></p>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+            <p style="text-align: center;">No items in the queue.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
