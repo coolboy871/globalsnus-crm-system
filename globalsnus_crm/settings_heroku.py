@@ -10,7 +10,7 @@ import dj_database_url
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
 # Update allowed hosts for Heroku
-ALLOWED_HOSTS = ['*']  # Heroku will handle the domain routing
+ALLOWED_HOSTS = ['*', 'globalsnus-crm-system.onrender.com']  # Heroku will handle the domain routing
 
 # Database configuration for Heroku (PostgreSQL)
 DATABASES = {
