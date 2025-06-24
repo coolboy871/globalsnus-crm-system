@@ -1,1 +1,1 @@
-web: gunicorn globalsnus_crm.wsgi --log-file -
+web: gunicorn globalsnus_crm.wsgi:application --log-file -
